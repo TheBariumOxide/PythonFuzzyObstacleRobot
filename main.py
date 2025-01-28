@@ -5,13 +5,17 @@ import csv
 from robotMovement import RobotSimulation as Robot
 from fuzzyObjectAvoidance import fuzzyObjectAvoidance
 
+#   CONSTANTS
 #   1 = show trail  0 = disable
 SHOWTRAIL = 1
-
+#   Enable fuzzy controller
+FUZZYEN = 0
 #   1 = CSV output enable 0 = disable
 OUTPUTEN = 1
+
+#   CSV output setup
 csvOutput = [["Robot Row", "Robot Column", "Left Sensor Dist", "Right Sensor Dist", "Robot Theta", "Turn Angle"]]
-csvFilePath = "FuzzyRobotPython/RobotOutput.csv"
+csvFilePath = "RobotOutput.csv"
 
 #   declaring grid
 gridPathfinding = np.zeros((1000, 1000))
@@ -52,8 +56,11 @@ while True:
     gridPathfinding[round(roomba.robotRow - 3.0) : round(roomba.robotRow + 3.0), 
                     round(roomba.robotColumn - 3.0) : round(roomba.robotColumn + 3.0)] = 254
 
-    turn = fuzzyObjectAvoidance(leftSensorDistance, rightSensorDistance)
-    # roomba.robotTheta += turn
+    if FUZZYEN == 1:
+        turn = fuzzyObjectAvoidance(leftSensorDistance, rightSensorDistance)
+        roomba.robotTheta += turn
+    else:
+        turn = 0
 
     #   CSV file output
     if OUTPUTEN == 1:
