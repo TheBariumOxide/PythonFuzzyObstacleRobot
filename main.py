@@ -48,10 +48,10 @@ while True:
 
     leftSensorDistance = roomba.getDist(gridPathfinding, 35)
     rightSensorDistance = roomba.getDist(gridPathfinding, -30)
-    # if leftSensorDistance == 100 | leftSensorDistance == -1:
-    #     leftSensorDistance = 100
-    # if rightSensorDistance == 100 | rightSensorDistance == -1:
-    #     rightSensorDistance = 100
+    if (leftSensorDistance > 100 | leftSensorDistance == -1):
+        leftSensorDistance = 100
+    if (rightSensorDistance > 100 | rightSensorDistance == -1):
+        rightSensorDistance = 100
 
     gridPathfinding[round(roomba.robotRow - 3.0) : round(roomba.robotRow + 3.0), 
                     round(roomba.robotColumn - 3.0) : round(roomba.robotColumn + 3.0)] = 254
